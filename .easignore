@@ -1,0 +1,18 @@
+# Ignore system and database folders
+D:/DevTools/
+MSSQL16.MSSQLSERVER/
+Backup/
+
+# Standard ignores
+node_modules/
+.expo/
+.git/
+dist/
+build/
+# Ignore the specific paths causing the EPERM error
+D:/DevTools/
+
+# Standard ignores to keep the upload small
+node_modules/
+.expo/
+.git/
