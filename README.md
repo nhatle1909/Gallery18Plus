@@ -15,6 +15,8 @@ Before you begin, ensure you have the following installed:
                /210/123456_ComicName
   4. Install APK, open and use
 ## 📁 Project Structure
+
+```
 Gallery18Plus/
 ├── app/                  # Expo Router main screens and routes
 │   ├── (tabs)/           # Example of tab-based navigation
@@ -36,3 +38,4 @@ Gallery18Plus/
 ├── package.json          # Node.js project manifest and dependency list
 ├── package-lock.json     # Records exact dependency versions
 └── tsconfig.json         # TypeScript compiler configuration
+```
