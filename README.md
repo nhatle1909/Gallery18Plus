@@ -10,9 +10,11 @@ Before you begin, ensure you have the following installed:
   1. Clone project
   2. Build apk file using expo build and install
   3. Create an folder named "210" in main storage of mobile device. It will look like this : 
+   ```
     MainStorage/Download
                /Music
                /210/123456_ComicName
+   ```
   4. Install APK, open and use
 ## 📁 Project Structure
 
