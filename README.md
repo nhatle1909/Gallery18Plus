@@ -1,6 +1,6 @@
 # Gallery18Plus
 # Intro 
-  A simple React Native application built with Expo that loads image folders from the device’s local storage. The app functions as a comic gallery ( now only server 210 comic from Nhentai ), allowing users to browse and view images seamlessly
+  A simple React Native application built with Expo that loads image folders from the device’s local storage. The app functions as a comic gallery ( now only serves 210 comic from Nhentai ), allowing users to browse and view images seamlessly
 # Prerequisites
 Before you begin, ensure you have the following installed:
   -   **Node.js**: [v18.x or higher](https://nodejs.org/en/download/)
@@ -8,13 +8,21 @@ Before you begin, ensure you have the following installed:
   -   **Expo CLI**: Install globally using npm install -g expo-cli
 # Installation ( Only for Android )
   1. Clone project
-  2. Build apk file using expo build and install
-  3. Create an folder named "210" in main storage of mobile device. It will look like this : 
+  2. Build apk file using expo build and install or use these command 
+     ```
+     npx expo prebuild
+     cd android
+     ./gradlew assembleRelease
+     ```
+  3. Create an folder named "Gallery18Plus" in main storage of mobile device. It will look like this : 
    ```
     MainStorage/Download
                /Music
-               /210/123456_ComicName
+               /Gallery18Plus/Image/123456_ComicName
+                                   /123456_ComicNmae
+               /Gallery18Plus/Video/
    ```
+  3.1 You can change the folder name or path but remember edit the path at constant/localUri.tsx
   4. Install APK, open and use
 ## 📁 Project Structure
 
