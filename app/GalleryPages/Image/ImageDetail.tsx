@@ -1,4 +1,5 @@
-import { GalleryContentModel, GetGalleryContent } from '@/model/GalleryModel';
+import { GalleryContentModel } from '@/model/MediaModel';
+import * as MediaLibrary from 'expo-media-library';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
@@ -16,13 +17,13 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-
 const { width } = Dimensions.get('window');
 const ITEM_HEIGHT = width * 1.5; 
 
 export default function GalleryScreen() {
     const { folderUri, title } = useLocalSearchParams<{ folderUri: string; title: string }>();
     const [images, setImages] = useState<GalleryContentModel[]>([]);
+    const [asset,setAsset] = useState<MediaLibrary.Asset[]>([]);
     const [loading, setLoading] = useState(true);
     const [jumpIndex, setJumpIndex] = useState('');
     const [currentIndex, setCurrentIndex] = useState(1); // Track current page
@@ -30,16 +31,26 @@ export default function GalleryScreen() {
     const listRef = useRef<FlatList>(null);
 
     useEffect(() => {
-        if (folderUri) {
+        const loadImages = async () => {
             setLoading(true);
-            GetGalleryContent(folderUri).then((data) => {
-                setImages(data);
-                setLoading(false);
-                setCurrentIndex(1); // Reset counter on folder change
-            });
+            const images = await MediaLibrary.getAssetsAsync({
+                album: folderUri,
+                mediaType: 'photo',
+                first: 1000,
+            })
+            setAsset(images.assets);
+            const result : GalleryContentModel[] = [];
+            for (const image of images.assets) {
+                result.push({ id: image.id.toString(), name: image.filename, path: image.uri });
+            }
+      
+            setImages(result.sort((a, b) => a.name.localeCompare(b.name)));
+            setCurrentIndex(1);
+            setLoading(false);
         }
+        loadImages();
     }, [folderUri]);
-
+   
     // Handle Scroll to update page counter
     const onScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
         const offsetY = event.nativeEvent.contentOffset.y;
