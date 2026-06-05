@@ -23,7 +23,6 @@ const ITEM_HEIGHT = width * 1.5;
 export default function GalleryScreen() {
     const { folderUri, title } = useLocalSearchParams<{ folderUri: string; title: string }>();
     const [images, setImages] = useState<GalleryContentModel[]>([]);
-    const [asset,setAsset] = useState<MediaLibrary.Asset[]>([]);
     const [loading, setLoading] = useState(true);
     const [jumpIndex, setJumpIndex] = useState('');
     const [currentIndex, setCurrentIndex] = useState(1); // Track current page
@@ -38,13 +37,13 @@ export default function GalleryScreen() {
                 mediaType: 'photo',
                 first: 1000,
             })
-            setAsset(images.assets);
+            
             const result : GalleryContentModel[] = [];
             for (const image of images.assets) {
                 result.push({ id: image.id.toString(), name: image.filename, path: image.uri });
             }
-      
-            setImages(result.sort((a, b) => a.name.localeCompare(b.name)));
+            const sortedResult = result.sort((a, b) => a.name.localeCompare(b.name));
+            setImages(sortedResult);
             setCurrentIndex(1);
             setLoading(false);
         }

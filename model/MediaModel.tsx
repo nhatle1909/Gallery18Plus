@@ -3,7 +3,12 @@ export interface GalleryContentModel {
   name: string;
   path: string;
 }
-
+export interface ComicModel{
+  id: string;
+  name: string;
+  chapters:string[],
+  
+}
 export interface GalleryModel {
   id:string;
   code: number;
