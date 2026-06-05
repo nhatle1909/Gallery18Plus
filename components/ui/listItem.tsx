@@ -1,4 +1,4 @@
-import { GalleryModel, VideoModel } from "@/model/MediaModel";
+import { ComicModel, GalleryModel, VideoModel } from "@/model/MediaModel";
 import { router } from "expo-router";
 import { ChevronRight, FolderOpen, Play } from 'lucide-react-native';
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -13,6 +13,21 @@ export const renderGalleryItem = ({ item }: { item: GalleryModel }) => (
       <View style={styles.textContainer}>
         <Text style={styles.itemCode}>ID: #{item.code}</Text>
         <Text style={styles.itemText} numberOfLines={1}>{item.name}</Text>
+      </View>
+      <ChevronRight size={18} color="#D1D5DB" />
+    </TouchableOpacity>
+  );
+  export const renderComicItem = ({ item }: { item: ComicModel }) => (
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => router.push({ pathname: '/GalleryPages/Comic/ComicChapter', params: { folderUri: item.path, title: item.name } })}
+    >
+      <View style={styles.iconBox}>
+        <FolderOpen size={22} color="#4F46E5" />
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.itemText} numberOfLines={1}>{item.name}</Text>
+        <Text style={styles.itemCode}>Chapters: #{item.code}</Text>
       </View>
       <ChevronRight size={18} color="#D1D5DB" />
     </TouchableOpacity>

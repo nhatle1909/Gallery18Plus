@@ -8,18 +8,14 @@ import React, { useState } from 'react';
 const PAGE_SIZE = 15;
 export default function GalleryImageScreen() {
   const [data, setData] = useState<GalleryModel[]>([]);
-  const [albums, setAlbums] = useState<MediaLibrary.Album[]>([]);
-  
+
   const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
-  // useEffect(()=>{
-  //   GetGallery(IMG_URI).then((result) => setData(result));
-  // },[])
+
   async function GetGalleries(galleryFolder:string) {
     if (permissionResponse?.status !== 'granted') {
       await requestPermission();
     }
     let allAlbums = await MediaLibrary.getAlbumsAsync();
-    setAlbums(allAlbums);
     const result : GalleryModel[] = [];
     for (const album of allAlbums){
       const match = album.title.match(/^(\d{6})_(.*)$/);
@@ -29,7 +25,7 @@ export default function GalleryImageScreen() {
         result.push({
           id: id,
           code: parseInt(id),
-          name: match[2],
+          name: title,
           path: album.id
         })
       }
@@ -38,7 +34,6 @@ export default function GalleryImageScreen() {
   }
   GetGalleries(IMG_URI)
   return (
-
     <GalleryTemplate<GalleryModel>
       data={data}
       searchFilter={(item, query) => item.name.toLowerCase().includes(query.toLowerCase()) || item.code.toString().includes(query)}
